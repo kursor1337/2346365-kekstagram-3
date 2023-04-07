@@ -3,7 +3,7 @@ import { generatePhotosArray } from './data.js';
 const photoTemplate = document.querySelector("#picture")
 const photoList = document.querySelector(".pictures")
 
-function drawPhoto() {
+function drawPhotos() {
   const photos = generatePhotosArray();
   photos.forEach(({url, likes, comments}) => {
     const photoHolder = photoTemplate.cloneNode(true);
@@ -16,5 +16,5 @@ function drawPhoto() {
 }
 
 export {
-  drawPhoto
+  drawPhotos
 }
