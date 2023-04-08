@@ -15,7 +15,7 @@ zoomOutButton.addEventListener('click', () => {
 });
 
 function changeImageScale(step) {
-  const currentScale = Number(scaleValueField.value);
+  const currentScale = Number(scaleValueField.value.slice(0, -1));
   const newScale = currentScale + step;
   if (newScale >= SCALE_MIN && newScale <= SCALE_MAX) {
     scaleValueField.value = `${newScale}%`;
