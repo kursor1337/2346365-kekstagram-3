@@ -1,10 +1,16 @@
-import { generatePhotosArray } from './data.js';
+import { getPhotos } from './data.js';
 
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const photoList = document.querySelector('.pictures');
 
 function drawPhotos() {
-  const photos = generatePhotosArray();
+  getPhotos(
+    () => drawProvidedPhotos,
+    () => { console.log('not ok'); }
+  );
+}
+
+function drawProvidedPhotos(photos) {
   const documentFragment = document.createDocumentFragment();
   photos.forEach(({url, likes, comments}) => {
     const photoHolder = photoTemplate.cloneNode(true);
