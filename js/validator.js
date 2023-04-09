@@ -17,12 +17,14 @@ pristine.addValidator(
   'От 20 до 140 символов'
 );
 
-form.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-});
+function validateForm() {
+  return pristine.validate();
+}
 
 function validateComments(value) {
   return !checkStringLength(value, 19) && checkStringLength(value, 140);
 }
+
+export {
+  validateForm
+};

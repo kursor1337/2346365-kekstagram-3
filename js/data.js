@@ -1,21 +1,12 @@
-import { getRandomPositiveInteger } from './util.js';
+const BACKEND_URL = 'https://27.javascript.pages.academy/kekstagram-simple/data';
 
-function generatePhotosArray() {
-  const photos = [];
-  for (let i = 1; i <= 25; i++) {
-    photos.push(
-      {
-        id: i,
-        url: `photos/${i}.jpg`,
-        description: '',
-        likes: getRandomPositiveInteger(15, 200),
-        comments: getRandomPositiveInteger(0, 200)
-      }
-    );
-  }
-  return photos;
+function getPhotos(onSuccess, onError) {
+  fetch(BACKEND_URL)
+    .then((response) => response.json())
+    .then(onSuccess)
+    .catch(onError);
 }
 
 export {
-  generatePhotosArray
+  getPhotos
 };
