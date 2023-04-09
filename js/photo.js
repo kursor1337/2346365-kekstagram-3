@@ -1,12 +1,14 @@
 import { getPhotos } from './data.js';
+import { showDownloadAlert } from './alert.js';
+
 
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const photoList = document.querySelector('.pictures');
 
 function drawPhotos() {
   getPhotos(
-    () => drawProvidedPhotos,
-    () => { console.log('not ok'); }
+    drawProvidedPhotos,
+    showDownloadAlert
   );
 }
 
