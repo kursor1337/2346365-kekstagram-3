@@ -23,3 +23,12 @@ function changeImageScale(step) {
   }
 }
 
+function cleanScale() {
+  scaleValueField.value = '100%';
+  imageView.style.scale = 1;
+}
+
+export {
+  cleanScale
+};
+

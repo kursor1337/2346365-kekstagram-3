@@ -17,7 +17,11 @@ let previousEffect = null;
 sliderBarField.hidden = true;
 
 effectsItemList.addEventListener('change', (evt) => {
-  currentEffect = evt.target.value;
+  changeEffect(evt.target.value);
+});
+
+function changeEffect(effect) {
+  currentEffect = effect;
   if (currentEffect === previousEffect) {
     return;
   }
@@ -26,4 +30,12 @@ effectsItemList.addEventListener('change', (evt) => {
   }
   imgElement.classList.add(`effects__preview--${currentEffect}`);
   previousEffect = currentEffect;
-});
+}
+
+function cleanEffect() {
+  changeEffect(Effects.Original);
+}
+
+export {
+  cleanEffect
+};

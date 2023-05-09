@@ -18,7 +18,7 @@ function drawProvidedPhotos(photos) {
     const photoHolder = photoTemplate.cloneNode(true);
     photoHolder.querySelector('.picture__img').src = url;
     photoHolder.querySelector('.picture__likes').textContent = likes;
-    photoHolder.querySelector('.picture__comments').textContent = comments.length;
+    photoHolder.querySelector('.picture__comments').textContent = comments;
     documentFragment.appendChild(photoHolder);
   });
   photoList.appendChild(documentFragment);

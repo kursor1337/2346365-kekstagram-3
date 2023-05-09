@@ -1,17 +1,16 @@
-import { isEscKey } from './util.js';
+import { registerEscAndButtonListeners } from './util.js';
 import { validateForm } from './validator.js';
 import {
   openUploadSuccess,
-  closeUploadSuccess,
-  openUploadError,
-  closeUploadError
+  openUploadError
 } from './network-message-controller.js';
+import { cleanEffect } from './effects-controller.js';
+import { cleanScale } from './scale-controller.js';
 
 const BACKEND_URL = 'https://27.javascript.pages.academy/kekstagram-simple';
 
 const uploadButton = document.querySelector('#upload-file');
 const cancelButton = document.querySelector('#upload-cancel');
-const commentInput = document.querySelector('.text__description');
 const form = document.querySelector('.img-upload__form');
 
 form.addEventListener('submit', (evt) => {
@@ -31,6 +30,7 @@ form.addEventListener('submit', (evt) => {
       if (response.ok) {
         closeUploadPhotoWindow();
         openUploadSuccess();
+        cleanForm();
       } else {
         openUploadError();
       }
@@ -39,32 +39,28 @@ form.addEventListener('submit', (evt) => {
 });
 
 function cleanForm() {
-  uploadButton.value = '';
-  commentInput.value = '';
-}
-
-function onFormEscapeKeyDown(evt) {
-  if (isEscKey(evt)) {
-    evt.preventDefault();
-    closeUploadPhotoWindow();
-    closeUploadError();
-    closeUploadSuccess();
-  }
+  form.reset();
+  cleanEffect();
+  cleanScale();
 }
 
 function openUploadPhotoWindow() {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onFormEscapeKeyDown);
+  registerEscAndButtonListeners(() => {
+    closeUploadPhotoWindow();
+    cleanForm();
+  }, cancelButton);
 }
 
 function closeUploadPhotoWindow() {
   document.querySelector('.img-upload__overlay').classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onFormEscapeKeyDown);
-  cleanForm();
 }
 
 uploadButton.addEventListener('change', openUploadPhotoWindow);
 
-cancelButton.addEventListener('click', closeUploadPhotoWindow);
+export {
+  openUploadPhotoWindow,
+  closeUploadPhotoWindow
+};
